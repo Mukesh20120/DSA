@@ -1,0 +1,35 @@
+1.Brute force approach
+
+concept:-
+1.find the path of both given node and store in array/vector.
+
+2.run loop find last common node in both vector and return it.
+
+class Solution {
+public:
+    bool rton(TreeNode *root,TreeNode *p,vector<TreeNode *>&arr){
+        if(root==NULL)return false;
+        arr.push_back(root);
+        if(root==p)return true;
+        
+        if(rton(root->left,p,arr)||rton(root->right,p,arr))
+            return true;
+        arr.pop_back();
+        return false;
+    }
+    
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        vector<TreeNode *>p1,q1;
+        rton(root,p,p1);
+        rton(root,q,q1);
+        int n=p1.size();
+        int m=q1.size();
+        int i=0;
+        while(i<n && i<m){
+            if(p1[i]!=q1[i])
+                break;
+         i++;   
+        }
+        return p1[i-1];
+    }
+};
