@@ -1,0 +1,37 @@
+optimal approach
+concept:- make three pointer all on head node 
+          detect loop same as slow and fast pointer method
+          have a tail pointer that follow the slow pointer 
+          check condition tail next not equal to head run loop until it not equal
+          make tail next null 
+
+          note when we make tail pointer after finding loop in condition statement
+          test case of loop found on head slow=head and temp also at head 
+          then the loop never break and gave tle
+
+
+class Solution
+{
+    public:
+    //Function to remove a loop in the linked list.
+    void removeLoop(Node* head)
+    {
+        if(head==NULL || !head->next)return;
+       Node *slow=head,*fast=head;
+       Node *tail=head;
+       while(fast && fast->next){
+           tail=slow;
+           fast=fast->next->next;
+           slow=slow->next;
+           if(slow==fast){
+               Node *temp=head;
+               while(tail->next!=temp){
+                   tail=tail->next;
+                   temp=temp->next;
+               }
+               tail->next=NULL;
+              break;
+           }
+       }
+    }
+};
