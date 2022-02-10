@@ -33,3 +33,30 @@ public:
         return p1[i-1];
     }
 };
+
+2.method optimal approach
+
+concept:- we go to left and if we find the element we are looking 
+         we return the that if 
+         assume for 3 element of binary tree 
+         on left you get what you are looking for and on right you don't find
+         then you will return on three case 
+         if found retun found one if both found return root 
+
+   code is self explanatory
+
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if(root==NULL || root==p || root==q)
+            return root;
+        TreeNode *left=lowestCommonAncestor(root->left,p,q);
+        TreeNode *right=lowestCommonAncestor(root->right,p,q);
+        if(left==NULL)
+            return right;
+        else if(right==NULL)
+            return left;
+        else
+            return root;
+    }
+};
