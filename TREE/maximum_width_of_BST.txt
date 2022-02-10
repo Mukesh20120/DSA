@@ -1,0 +1,41 @@
+1.method optimal solution we are indexing the left as 2*i+1
+  and right as 2*i+2
+
+steps 
+1. make queue to store the node and the index value
+2. loop level order
+3. find min in the level it will be the first encounter node
+  ans two interger to note the first and last index of every level
+4. store first and last if it will be so.
+5. max from previous width and the total width of current level be last - first + 1
+
+
+
+class Solution {
+public:
+    int widthOfBinaryTree(TreeNode* root) {
+        if(!root)
+            return 0;
+        unsigned int ans = 0;
+        queue<pair<TreeNode*, unsigned int>> q;
+        q.push({root,0});
+        while(!q.empty()){
+            int size = q.size();
+            unsigned int mmin = q.front().second;    //to make the id starting from zero
+            unsigned int first,last;
+            for(int i=0; i<size; i++){
+                unsigned int cur_id = q.front().second-mmin;
+                TreeNode* node = q.front().first;
+                q.pop();
+                if(i==0) first = cur_id;
+                if(i==size-1) last = cur_id;
+                if(node->left)
+                    q.push({node->left, cur_id*2+1});
+                if(node->right)
+                    q.push({node->right, cur_id*2+2});
+            }
+            ans = max(ans, last-first+1);
+        }
+        return ans;
+    }
+};
