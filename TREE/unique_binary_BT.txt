@@ -2,9 +2,9 @@ class Solution {
 public:
     int numTrees(int n) {
         //TC=o(n^2) and SC=o(n)
-        //formula of catalian no.
+        //formula of catalan no.
         // E T(i-1)*T(n-i-1);
-        //making a array to store the catalian  no
+        //making a array to store the catalan  no
         vector<int>arr(n+1);
         arr[0]=arr[1]=1;
         //filling the array
@@ -15,5 +15,31 @@ public:
           arr[i]=sum;  
         }
         return arr[n];
+    }
+};
+
+2.approach using catalan formula
+  make a binomial function
+class Solution {
+public:
+    long bino(int n,int k){
+        long res=1;
+        //binomial formula nCk = n!/k!*(n-k)!
+        //now as we know that the n! some part equal to k get discarded
+        //so we discard max value each time
+        if(k>n-k)//assume k=8,n=10 8! cancel with 8!of n now remain 10*9/2!
+            k=n-k;
+        for(int i=0;i<k;i++){
+            res*=n-i;
+            res/=i+1;
+        }
+        return res;
+    }
+    
+    int numTrees(int n) {
+        //we will use formula of catalan no
+        // 2nCn/n+1
+        //binomial coffecient of 2nCn
+        return bino(2*n,n)/(n+1);
     }
 };
