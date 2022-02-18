@@ -67,3 +67,60 @@ public:
         return root;
     }
 };
+
+
+
+/*
+2.method
+
+concept is we remove the node which is equal to the key value and 
+connect its previous node with deleted node left and connect the right BST with
+the last of the deleted node left - r -r -r at the end
+and return root
+
+ */
+class Solution {
+public:
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        if(root==NULL)return NULL;
+        if(root->val==key)
+            return helper(root);
+        TreeNode *cur=root;
+        while(cur){
+            if(cur->val > key){
+                if(cur->left && cur->left->val==key){
+                    cur->left=helper(cur->left);
+                   break;
+                }
+                else
+                    cur=cur->left;
+            }
+            else{
+                if(cur->right && cur->right->val==key){
+                    cur->right=helper(cur->right);
+                    break;
+                }
+                else
+                    cur=cur->right;
+            }
+        }
+        return root;
+    }
+    TreeNode *helper(TreeNode *root){
+        if(!root->left)
+            return root->right;
+        else if(!root->right)
+            return root->left;
+        TreeNode *rchild=root->right;
+        TreeNode *lastchild=lastnode(root->left);
+        lastchild->right=rchild;
+        return root->left;
+    }
+    TreeNode *lastnode(TreeNode *node){
+        while(node->right){
+            node=node->right;
+        }
+        return node;
+    }
+};
+
