@@ -44,3 +44,46 @@ public:
         return ans[k-1]; //k-1 due to 1 indexing
     }
 };
+
+
+
+//3 method
+// TC o(n) and SC(o(n)) stack space if we do recursion also it take auxilary space
+ 
+class Solution {
+public:
+    int kthSmallest(TreeNode* root, int k) {
+        stack<TreeNode*>st;
+        while(true){
+            while(root){
+                st.push(root);
+                root=root->left;
+            }
+            root=st.top();
+            st.pop();
+            if(--k==0)return root->val;
+            root=root->right;
+        }
+    }
+};
+
+//4 method same as previous just traverse through recursion
+class Solution {
+public:
+    int count;
+    int ans;
+    int Inoder(TreeNode* node){
+        if(!node){
+            return 0;
+        }
+       Inoder(node->left);
+            if(--count==0)ans=node->val;
+      Inoder(node->right);
+       return ans;
+    }
+    
+    int kthSmallest(TreeNode* root, int k) {
+        count=k;
+        return Inoder(root);
+    }
+};
