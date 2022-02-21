@@ -15,3 +15,26 @@ public:
         return NULL;
     }
 };
+
+/* 2 method little bit simlar as linked list here we make vector each time and pasing 
+
+
+*/
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        if(nums.size()==0)return NULL;
+        if(nums.size()==1)return new TreeNode(nums[0]);
+        
+        int mid=nums.size()/2;
+        TreeNode *root=new TreeNode(nums[mid]);
+        
+        vector<int>rleft(nums.begin(),nums.begin()+mid);
+        vector<int>rright(nums.begin()+mid+1,nums.end());
+        root->left=sortedArrayToBST(rleft);
+        root->right=sortedArrayToBST(rright);
+        return root;
+    }
+};
+
+
