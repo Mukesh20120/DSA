@@ -27,3 +27,24 @@ public:
         return root;
     }
 };
+
+
+//2nd method TC O(N) SC(1) auxilary space
+class Solution {
+public:
+    TreeNode* bstFromPreorder(vector<int>& pre) {
+        int i=0;
+        return construct(pre,i,INT_MAX);
+    }
+    TreeNode *construct(vector<int>&pre,int &i,int ub){
+        //base case
+        if(i==pre.size() || pre[i]>ub)return NULL;
+        //what to do
+        TreeNode *root=new TreeNode(pre[i++]);
+        //all choice
+        root->left=construct(pre,i,root->val);
+        root->right=construct(pre,i,ub);
+        return root;
+    }
+};
+
