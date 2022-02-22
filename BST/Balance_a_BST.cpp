@@ -31,3 +31,31 @@ public:
         return construct(val,0,val.size()-1);
     }
 };
+
+// little bit optimization of above code 
+class Solution {
+public:
+    void Inorder(TreeNode *node,vector<TreeNode*>&val){
+        if(node){
+            Inorder(node->left,val);
+            val.push_back(node);
+            Inorder(node->right,val);
+        }
+    }
+    TreeNode* construct(vector<TreeNode*>&val,int l,int h){
+        if(l>h)
+          return NULL;
+        
+            int mid=l+(h-l)/2;
+            TreeNode *root=val[mid];
+            root->left=construct(val,l,mid-1);
+            root->right=construct(val,mid+1,h);
+          return root;
+    }
+    
+    TreeNode* balanceBST(TreeNode* root) {
+        vector<TreeNode*>val;
+        Inorder(root,val);
+        return construct(val,0,val.size()-1);
+    }
+};
