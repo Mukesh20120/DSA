@@ -32,3 +32,40 @@ public:
         return false;
     }
 };
+
+//2nd method we don't need extra space we can use original 2d matrix
+
+class Solution {
+public:
+    bool dfs(vector<vector<char>>&board,string &word,int i,int j,int cur){
+      if(i<0 || j<0 || i>=board.size() || j>=board[0].size())
+          return false;
+      if(board[i][j]!=word[cur])
+          return false;
+    
+         if(cur==word.length()-1)return true;
+        char c=board[i][j];
+        board[i][j]='0';
+        bool result=(dfs(board,word,i-1,j,cur+1) ||
+                     dfs(board,word,i,j+1,cur+1) ||
+                     dfs(board,word,i+1,j,cur+1) ||
+                    dfs(board,word,i,j-1,cur+1));
+       
+         board[i][j]=c;
+        return result;
+    }
+    
+    bool exist(vector<vector<char>>& board, string word) {
+        int row=board.size();
+        int col=board[0].size();
+      
+        for(int i=0;i<row;i++){
+            for(int j=0;j<col;j++){
+               bool flag=dfs(board,word,i,j,0);
+                if(flag)
+                    return true;
+            }
+        }
+        return false;
+    }
+};
