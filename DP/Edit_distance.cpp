@@ -55,3 +55,38 @@ public:
         return dp[n][m];
     }
 };
+
+//4 mrthod tabular making 1D dp
+
+class Solution {
+public:
+    int minDistance(string word1, string word2) {
+        int n=word1.length();
+        int m=word2.length();
+        
+        //vector for dp for tabular form
+        vector<int>prev(m+1,0),cur(m+1,0); //size will be m b/c we replace row from two vector
+        
+        //initilization of base case same as recursion
+      
+      
+        for(int j=0;j<=m;j++) 
+            prev[j]=j;
+        
+        //travesing 
+        for(int i=1;i<=n;i++){
+            cur[0]=i;
+            for(int j=1;j<=m;j++){
+                //condition is same as in recursion 
+                if(word1[i-1]==word2[j-1])
+                    cur[j]=0+prev[j-1];
+                else
+                    cur[j]=1+min(prev[j],min(prev[j-1],cur[j-1]));
+            }
+            prev=cur;
+        }    
+        return prev[m];
+    }
+};
+//to get up to this solution we started from recursion taking reference of
+//previous one solution
