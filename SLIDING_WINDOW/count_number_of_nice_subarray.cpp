@@ -1,3 +1,27 @@
+//fist method using unordered map
+//we are changing odd as 1 and even as 0 the question boil down to find the 
+//sub array who sum equal to k
+//TC=O(n) ans SC O(n) as we are using map
+class Solution {
+public:
+    int numberOfSubarrays(vector<int>& nums, int k) {
+        unordered_map<int,int>mp;
+        int n=nums.size();
+        int sum=0;
+        int cnt=0;
+        for(int i=0;i<n;i++){
+            sum+=nums[i]&1;
+            if(sum==k)
+                cnt++;
+            if(mp.find(sum-k)!=mp.end())
+                cnt+=mp[sum-k];
+            mp[sum]++;
+        }
+        return cnt;
+    }
+};
+
+//TC O(n) SC(1)
 class Solution {
 public:
     int numberOfSubarrays(vector<int>& nums, int k) {
