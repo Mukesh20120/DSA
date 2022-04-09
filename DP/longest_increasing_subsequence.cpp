@@ -77,3 +77,27 @@ public:
         return prev[0];
     }
 };
+
+//other solution using 1 d vector to store the maximum value
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        //we maintain a variable to store the maximum
+        int maxi=1;
+        //make a 1d array to store
+        int n=nums.size();
+        //as maximum lenght of subsequence will be 1
+        vector<int>dp(n,1);
+        //running two loop find max and update the dp array
+        for(int i=0;i<n;i++){
+            for(int prev=0;prev<i;prev++){
+                //previous is less than current value
+                if(nums[prev]<nums[i]){
+                    dp[i]=max(dp[i],1+dp[prev]);
+                }
+            }
+            maxi=max(dp[i],maxi);
+        }
+        return maxi;
+    }
+};
