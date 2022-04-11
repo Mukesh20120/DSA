@@ -81,3 +81,64 @@ public:
         return dp[n][tar];
     }
 };
+
+
+
+
+//other way to solve question
+//recursion approach                      tech dose yt
+class Solution {
+public:
+    int numSquares(int n) {
+        //recursion solution
+    return count(n);
+    }
+    int count(int n){
+        if(n<=3)
+            return n;
+        int ans=n;
+        for(int i=1;i*i<=n;i++)
+            ans=min(ans,1+count(n-i*i));
+        
+        return ans;
+    }
+};
+
+//memoization above code
+class Solution {
+public:
+    int numSquares(int n) {
+        //recursion solution
+        vector<int>dp(n+1,-1);
+    return count(n,dp);
+    }
+    int count(int n,vector<int>&dp){
+        if(n<=3)
+            return n;
+        
+        if(dp[n]!=-1)return dp[n];
+        int ans=n;
+        for(int i=1;i*i<=n;i++)
+            ans=min(ans,1+count(n-i*i,dp));
+        
+        return dp[n]=ans;
+    }
+};
+
+//optimal approach using tabluar form
+class Solution {
+public:
+    int numSquares(int n) {
+        int dp[n+1];
+        dp[0]=0;
+        for(int i=1;i<=n;i++){
+            dp[i]=i;
+           for(int j=1;j*j<=i;j++){
+            int sz=j*j;
+            dp[i]=min(dp[i],1+dp[i-sz]);
+            }
+        }
+        return dp[n];
+    }
+};
+
