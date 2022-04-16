@@ -63,3 +63,39 @@ public:
         return ans;
     }
 };
+
+
+//making one function on above code we repeat the code we can make a function
+//don't need to repeat the code
+
+class Solution {
+public:
+    void search(vector<int>&ans,vector<int>&nums,int target,bool flag){
+       int low=0,n=nums.size(),high=n-1;
+       while(low<=high){
+            int mid=low+(high-low)/2;
+            if(nums[mid]==target){
+                if(flag){
+                ans[0]=mid;
+                high=mid-1;
+                }
+                else{
+                ans[1]=mid;
+                low=mid+1;
+                }
+            }
+            else if(nums[mid]>target)
+                high=mid-1;
+            else
+                low=mid+1;
+        }
+    }
+    vector<int> searchRange(vector<int>& nums, int target) {
+        //optimal approach using binary search
+        vector<int>ans={-1,-1};
+       search(ans,nums,target,true);
+       search(ans,nums,target,false);
+
+        return ans;
+    }
+};
