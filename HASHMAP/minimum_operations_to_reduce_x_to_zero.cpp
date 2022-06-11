@@ -24,3 +24,25 @@ public:
         return res==INT_MAX?-1:res;
     }
 };
+
+
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int x) {
+        int sum=accumulate(nums.begin(),nums.end(),0);
+        int l=0,r=0,res=INT_MAX,n=nums.size();
+        while(l<=r){
+            if(sum>=x){
+                if(sum==x)
+                    res=min(res,l+n-r);
+                if(r<n)
+                    sum-=nums[r++];
+                else
+                    break;
+            }
+            else
+                sum+=nums[l++];
+        }
+        return res==INT_MAX?-1:res;
+    }
+};
