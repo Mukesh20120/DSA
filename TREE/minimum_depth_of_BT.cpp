@@ -32,3 +32,26 @@ public:
         return mn;
     }
 };
+
+//other easy solution
+class Solution{
+  public:
+    /*You are required to complete this method*/
+    int minDepth(Node *root) {
+        //checking base case
+        if(root==NULL)return 0;
+        //if it is leaf node
+        if(root->left==NULL && root->right==NULL)return 1;
+        
+        //initilize left and right with max value
+        int left=INT_MAX,right=INT_MAX;
+        //if left is there modified it
+        if(root->left)
+         left=minDepth(root->left);
+        //if right is there modified it
+        if(root->right)
+         right=minDepth(root->right);
+         //taking min of left and right add 1 to it
+      return min(left,right)+1;
+    }
+};
