@@ -1,0 +1,13 @@
+//for taking file 
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+
+//fast input output
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL); 
+// flushes cout
+                   /*
+                   use printf and scanf instead of cin and cout
+                   use '/n' instead of endl
+                   cout<<endl=cout<<'/n'<<flush
+                   */
