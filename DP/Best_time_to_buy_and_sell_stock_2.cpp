@@ -95,20 +95,3 @@ public:
 };
 
 
-//optimal solution
-class Solution {
-public:
-    int maxProfit(vector<int>& prices) {
-        int firstbuy=INT_MIN;
-        int firstsell=0;
-        int secondbuy=INT_MIN;
-        int secondsell=0;
-        for(int &it: prices){
-            firstbuy=max(firstbuy,-it);
-            firstsell=max(firstsell,firstbuy+it);
-            secondbuy=max(secondbuy,firstsell-it);
-            secondsell=max(secondsell,secondbuy+it);
-        }
-        return secondsell;
-    }
-};
